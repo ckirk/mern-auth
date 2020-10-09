@@ -2,9 +2,12 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 import { setCurrentUser, logoutUser } from "./actions/authActions";
 import { Provider } from "react-redux";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import { theme } from "./constants/theme";
 import store from "./store";
 
 import Navbar from "./components/layout/Navbar";
@@ -13,6 +16,9 @@ import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 import Dashboard from "./components/dashboard/Dashboard";
+
+import MuiTest from "./components/layout/MuiTest";
+
 
 import "./App.css";
 
@@ -35,23 +41,29 @@ if (localStorage.jwtToken) {
     window.location.href = "./login";
   }
 }
+
 class App extends Component {
   render() {
     return (
-      <Provider store={store}>
-        <Router>
-          <div className="App">
-            <Navbar />
-            <Route exact path="/" component={Landing} />
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/login" component={Login} />
-            <Switch>
-              <PrivateRoute exact path="/dashboard" component={Dashboard} />
-            </Switch>
-          </div>
-        </Router>
-      </Provider>
+      <MuiThemeProvider theme={createMuiTheme(theme)}>
+        <CssBaseline />
+        <Provider store={store}>
+          <Router>
+            <div className="App">
+              <Navbar />
+              <MuiTest />
+              <Route exact path="/" component={Landing} />
+              <Route exact path="/register" component={Register} />
+              <Route exact path="/login" component={Login} />
+              <Switch>
+                <PrivateRoute exact path="/dashboard" component={Dashboard} />
+              </Switch>
+            </div>
+          </Router>
+        </Provider>
+      </MuiThemeProvider>
     );
   }
 }
+
 export default App;
