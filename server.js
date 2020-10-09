@@ -1,11 +1,10 @@
-// import 'dotenv/config'; // for environment variable usage
-require('dotenv').config();
+// import 'dotenv/config'; // for environment variable usage (alt)
+require('dotenv').config(); // for environment variable usage
+
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
-
-console.log(process.env.MY_SECRET)
 
 const users = require("./routes/api/users");
 
